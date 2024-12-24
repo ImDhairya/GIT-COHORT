@@ -1,0 +1,59 @@
+HTTP and HTTPS are stateless protocols that means they do not retain any memory of previous interactions.
+
+Communication is unencrypted, making it vulnerable to evesdropping or man-in-the-middle attacks.
+
+HTTPS is the secure version of HTTP.
+
+It uses SSL/TLS (Secure Sockets Layer / Transport Layer Security) to encrypt the communiaction between the client and server. 
+
+This ensueres data integrity, confidentiality and authenticatity.
+
+What Happens brother?
+
+
+Client Initiates a Request: 
+
+The browser sends an HTTP request to the server. The request inclueds: 
+
+1) A method (eg. GET, POST)
+2) Server Processes the Request: 
+
+The server recives and interprets the request. 
+
+It retrieves the request resources or processes the logic for dynamic data.
+
+3) Server sends a Response: 
+
+The server sends an HTTP response back to the client. The response inclueds
+a) Status code: (e.g. 200 OK.)
+
+b) Headers (e.g. Content-Type, Cache-Control)
+
+c) Optionally, a body (e.g. HTML content or JSON data)
+
+
+
+SSL/TLS:
+
+SSL (Secure Sockets Layer) and its successor TLS (Transport Layer Security) are cryptographic protocols that secure communication over the internet.
+They encrypt the data exchanged between the client and server, preventing unauthorized access or tampering.
+
+
+How HTTPS Secures Data:
+
+Encryption: Data is encrypted so that only the intended recipient can read it.
+Integrity: Ensures data is not altered during transmission.
+Authentication: Validates the server's identity using SSL/TLS certificates issued by trusted Certificate Authorities (CAs).
+
+
+HTTPS Handshake:
+
+The process of establishing a secure connection involves:
+Exchanging cryptographic keys.
+Verifying the server's identity using SSL/TLS certificates.
+
+
+Certificate Authorities (CAs):
+
+CAs are trusted entities that issue SSL/TLS certificates to verify a website's authenticity.
+Examples: Let's Encrypt, DigiCert, GoDaddy.

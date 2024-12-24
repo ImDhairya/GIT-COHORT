@@ -1,0 +1,17 @@
+-------------------------------------------------------
+
+Network Protocols 
+
+Protocols are a set of rules and conventions that define how devices communicate over a network.
+
+They ensure consistent and reliable communicateion between different systems, regardless of hardware or software differences.
+
+Just as people speaking different languages need a translator, devices on a network use protocols to 'understand' each other.
+
+Example of protocols 
+TCP (transmission control protocol)
+UDP( User Datagram protocol)
+HTTP/S (HyperText Transfer Protocol)
+FTP(File transfer protocol)
+
+Network protocols are foundation of modern communication over internet. They ensure that data is transferred accurately, securely, and efficiently between devices, enabling seamless communication across the globe. 

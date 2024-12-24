@@ -1,0 +1,26 @@
+The World Wide Web
+
+The internet is a global system of interConnected computer suit that uses TCP/IP protocol transmission system for the communication of the packets between the networks and devices.
+
+It is a network of networks that connects organizations individuals, through wireless, electronic such as inter-linked hypertext documents and applications of the WWW, electronic mail, telephony and file sharing.
+
+WWW is an information space where documents and other web resources are identified by Uniform Resource Locators(URLs), which may be linked by hypertext, and are accessible via the Internet. 
+
+
+// How is the data transferred across the network
+
+The data is broken down into smaller-n-smaller packets and then transferred over the internet that travels through the various routers and destinations. Once all the packets arrive, they are reassambled to original file.
+
+// Internet Service Providers
+
+They provide the network access or service through which we can transfer the data over the internet 
+
+// Routers
+
+A networking device which is used for communication, it forwards data packets between computer networks. Router provides traffic directing functions on the internet. Data sent through the internet such as a web page or email, is in the form of data packets.
+
+// DNS
+
+DNS is a domain name subsystem, hierarchal and decentralized naming system for computers, services, or other resources connected to the Internet or a private network. Associates domain names assigned to each of the partition. 
+
+Most prominently, it translates domain names such as example.com into computer readable numeric IP addresses needed for locating and identifying computer services and devices with the underlying network protocols.

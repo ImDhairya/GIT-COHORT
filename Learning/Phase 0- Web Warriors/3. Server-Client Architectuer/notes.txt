@@ -1,0 +1,58 @@
+Client Server Model
+
+A client server model is design paradigm in which clients (users) request and receive services or resources from a centralized server.
+
+The server acts as the provider of resources, data, or processing capabilites, while the client sends requests and consumes the results.
+
+Example:= A browser (client) requests a web page from a web server, which responds with the requested HTML document.
+
+------------------------------------------------
+
+Client = Sends a request for resources or service, Recieves and displays data, Typically lightweight (e.g. rednering UI), Runs on user devices
+
+
+Server = Processes requests and sends back responses, Web servers, Database servers. Processes, stores, and serves data. Heavy processing.
+
+Runs on central systems (e.g. Cloud, data centers)
+
+
+-----------------------------------------------------
+
+
+In a request response model the connection gets established and then the client will respond with something and then the data will get processed.
+
+Caching, Browser may cache data locally to reduce no of requests sent to the server.
+
+-------------------------------------------------------
+
+Web Servers and Web hosting
+Applications like Apache or Nginx handle HTTP request from client and serve the requested resources.
+
+Web servers can: 
+  Server static file(HTML, CSS, JS)
+  Act as a gateway for dynamic applications (PHP, Node.js)
+
+
+Web Hosting: 
+  Hosting providers store your web server and its files so they can be accessed by clients worldwide.
+
+  Hosting types include shared hosting, virtual private servers (VPS), and cloud hosting.
+
+
+-------------------------------------------------------
+
+Network Protocols 
+
+Protocols are a set of rules and conventions that define how devices communicate over a network.
+
+They ensure consistent and reliable communicateion between different systems, regardless of hardware or software differences.
+
+Just as people speaking different languages need a translator, devices on a network use protocols to 'understand' each other.
+
+Example of protocols 
+TCP (transmission control protocol)
+UDP( User Datagram protocol)
+HTTP/S (HyperText Transfer Protocol)
+FTP(File transfer protocol)
+
+Network protocols are foundation of modern communication over internet. They ensure that data is transferred accurately, securely, and efficiently between devices, enabling seamless communication across the globe. 
