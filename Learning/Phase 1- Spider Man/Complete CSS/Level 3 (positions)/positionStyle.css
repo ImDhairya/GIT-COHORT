@@ -1,0 +1,35 @@
+div {
+  height: 100px;
+  width: 100px;
+  display: inline-block;
+  background-color: aqua;
+  border: 2px solid black;
+}
+
+#box1 {
+  /* the default position */
+  /*position: top =>  Top, Right, Left, Bottom does work here*/
+  position: static;
+}
+
+#box2 {
+  /* In short the top right bottom left works */
+  /* element is relative to itself. (The top, right, bottom, left, and z-index will work) */
+  position: relative;
+  top: 20px;
+  left: 30px;
+}
+
+#box3 {
+  /* It looks for the nearest ancestor that has a position value of relative, absolute, or fixed. */
+  /* Position relative to it's closest positioned ancestor. (removed from the flow)  */
+  position: absolute;
+  top: 30px;
+  left: 20px;
+}
+
+#box4 {
+  /* Position relative to the browser */
+  position: fixed;
+  top: 0px;
+}

@@ -1,0 +1,17 @@
+#box1 {
+  height: 100px;
+  width: 100px;
+  font-size: 10px;
+  background-color: green;
+}
+
+#box2 {
+  height: 50px;
+  width: 50%;
+  /*font 2em = 2 times the parents font size  */
+  font-size: 2em;
+  background-color: yellow;
+  width: 5em;
+  /* width meaning the font size of the element itself so 5em means 5 times the font size of the element itself (no parent element )  */
+  margin-left: 25%;
+}

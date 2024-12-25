@@ -1,0 +1,35 @@
+the em means the times more or less than the parent for some and element itself for some case that scenario the size of font will be 5em then it means 5 times the size of the parent element font size
+
+rem means root em the relative to the most outer div that is the body tag so the size of font at that browser at that time then 5rem will mean the size of the font will be 5 times the size of the main body tag
+
+There are 4 types of positions there in the css
+
+1. Static
+2. Relative
+3. Absolute
+4. Fixed
+5. Sitcky
+
+---
+
+1. Static
+
+position:static
+
+these 4 properties don't work in
+If you want the element to come from top, left, right, bottom
+
+top: Page ke top se mera element kitne distance pe hona chaiye
+right : Page ke right se mera element kitne distance pe hona chaiye....
+
+2. Relative
+
+Here the (top: 50px) for top bottom.. etc works every element can be shifted to the left top bottom or right accordingly
+
+z-index also works
+
+3. Absolute
+
+The parent of parent or the heirarchy that is there comparing it to those elements (parent elements), and comparing the elements with closest non static ancestor in that manner and then positioned 
+ 
+Positioned relative to its closest positiioned (non-statick) (anything but static element) ancestor. (removed from the flow)
