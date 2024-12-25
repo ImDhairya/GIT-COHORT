@@ -1,0 +1,21 @@
+div {
+  height: 100px;
+  width: 100px;
+  display: inline-block;
+  background-color: aqua;
+  border: 2px solid black;
+}
+
+#box1 {
+  background-image: url("./image.png");
+  background-size: cover;
+}
+#box2 {
+  background-image: url("./image.png");
+  background-size: contain;
+}
+#box3 {
+  background-image: url("./image.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
