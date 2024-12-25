@@ -1,0 +1,24 @@
+CSS selector combinations 
+
+.selector-1.selector-2 {
+  property: value;
+}
+
+<h1 class = "large-heading"> 
+    Title
+</h1>
+
+h1.large-header {
+  font-size: 200%;
+}
+
+--------------------------------------------------
+
+<h2 id = "big-blue" class = "large blue"> 
+  Title
+</h2>
+
+#big-blue.large.blue {
+  color: blue;
+  font-size: 200%;
+}

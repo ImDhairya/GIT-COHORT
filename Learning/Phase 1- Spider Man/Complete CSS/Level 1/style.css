@@ -1,0 +1,52 @@
+div#first {
+  height: 400px;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: pink;
+}
+
+#heading {
+  background-color: aqua;
+  border: solid black 2px;
+  text-align: center;
+  width: 350px;
+  padding: 10px;
+}
+
+p {
+  border-style: dashed;
+  padding: 8px;
+}
+
+div#data {
+  background-color: green;
+  text-align: right;
+  padding: 100px 100px;
+  /* border: 30px solid gray; */
+  border-radius: 25px;
+}
+
+#displayproperties {
+  text-align: center;
+}
+
+#abc {
+  display: inline;
+  background-color: pink;
+}
+
+#btn1 {
+  display: block;
+}
+
+#box2 {
+  height: 300px;
+  width: 300px;
+  margin: 25px;
+  padding: 25px;
+  /* display: inline; */
+  /* display inline won't let us set margines in the top and bottom rather it will only let us set the margines in right and left so we rather choose inlin-block property for the use of setting the display */
+  display: inline-block;
+}

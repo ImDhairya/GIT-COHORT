@@ -1,0 +1,19 @@
+text align means that not the aligning of the center of the screen
+
+but also means that it will be align center to the div that it is contained in
+
+
+inline = Takes only the space required by the element.(no margin/ padding)
+
+block = Takes full space available in width.
+
+inline-block = Similar to inline but we can set margin & padding.
+
+none= to remove element from document flow.
+
+
+
+/* display inline won't let us set margines in the top and bottom rather it will only let us set the margines in right and left so we rather choose inlin-block property for the use of setting the display */
+
+
+

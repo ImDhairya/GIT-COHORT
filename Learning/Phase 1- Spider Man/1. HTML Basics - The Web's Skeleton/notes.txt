@@ -1,0 +1,26 @@
+<section>
+Represents a thematic grouping of content.
+Often used to divide content into sections, like chapters in a document or parts of a webpage.
+When to Use:
+
+When content is related to a single theme.
+To group content under a heading.
+
+
+<article>
+Represents a self-contained piece of content that can stand alone.
+Often used for blog posts, news articles, or user-generated content.
+When to Use:
+
+When content can be independently distributed or reused.
+
+
+<aside>
+Represents content related to the main content, such as sidebars, pull quotes, or advertisements.
+Often used for complementary information.
+When to Use:
+
+For tangential or supplementary content.
+
+
+By incorporating semantic tags like <section>, <article>, <nav>, <main>, and <aside>, you ensure your web pages are structured, meaningful, and user-friendly. Let me know if you'd like further assistance!

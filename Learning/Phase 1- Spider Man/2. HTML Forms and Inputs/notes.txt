@@ -1,0 +1,27 @@
+<form>: Defines the form container.
+action: Specifies the URL where the form data will be submitted.
+method: Defines how the data is sent (GET or POST).
+
+<form action="/submit" method="POST">
+  <!-- Form inputs go here -->
+</form>
+
+
+<label for="message">Message:</label>
+<textarea id="message" name="message" rows="4" cols="50"></textarea>
+
+
+
+
+<label for="role">Role:</label>
+<select id="role" name="role">
+  <option value="user">User</option>
+  <option value="admin">Admin</option>
+</select>
+
+
+<form action="/search" method="GET">
+  <label for="query">Search:</label>
+  <input type="text" id="query" name="query">
+  <button type="submit">Search</button>
+</form>

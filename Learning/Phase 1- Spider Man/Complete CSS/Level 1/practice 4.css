@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  color: white;
+  padding: 0;
+}
+
+#navbar {
+  font-size: 25px;
+  background-color: #0f1111;
+  height: 60px;
+  border: white 10px solid;
+}
+
+button {
+  background-color: #f08804;
+}
+
+#logo {
+  color: #f08804;
+}
+
+a {
+  margin-right: 200px;
+}
+
+.dd {
+  height: 100px;
+  display: inline-block;
+  width: 100px;
+}
+
+#dd1 {
+  background-color: rgba(255, 0, 0, 0.6);
+}
+#dd2 {
+  background-color: rgba(0, 255, 0, 0.6);
+}
+#dd3 {
+  background-color: rgba(255, 0, 255, 0.6);
+}
+
+#amazon {
+  text-align: center;
+}
+
+#copyright {
+  text-align: center;
+}

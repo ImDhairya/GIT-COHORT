@@ -1,0 +1,40 @@
+CSS (Cascading Style Sheets) is a stylesheet language used to describe the presentation of a document written in HTML. It allows you to style web pages, enhancing their appearance and user experience.
+
+Purpose of CSS:
+Separation of Content and Design: Keeps HTML focused on structure and CSS on styling.
+Styling Flexibility: Offers tools to style elements with colors, fonts, layouts, and animations.
+Reusability: Enables consistent styles across multiple pages with external stylesheets.
+Responsiveness: Adapts designs for different screen sizes and devices.
+
+
+.box {
+  width: 200px; /* Content width */
+  padding: 10px; /* Inner space */
+  border: 2px solid black; /* Border thickness */
+  margin: 20px; /* Outer space */
+}
+
+
+p {
+  color: darkblue;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+h1 {
+  color: blue;
+}
+
+
+.highlight {
+  background-color: yellow;
+}
+

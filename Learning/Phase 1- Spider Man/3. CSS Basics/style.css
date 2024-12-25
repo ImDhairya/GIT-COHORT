@@ -1,0 +1,27 @@
+* {
+  margin: 0%;
+  padding: 0%;
+}
+body {
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+}
+#gwagon h1 {
+  background-color: cyan;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 30px;
+}
+
+#gwagon p {
+  background-color: cadetblue;
+  margin: 50px;
+  line-height: 70px;
+  padding: 10px;
+}
+
