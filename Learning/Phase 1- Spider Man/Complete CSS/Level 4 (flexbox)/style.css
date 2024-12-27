@@ -1,0 +1,44 @@
+#heading {
+  text-align: center;
+}
+
+#parent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 75%;
+  border: black 2px solid;
+  text-align: center;
+  height: 300px;
+}
+
+.box {
+  margin-right: 5px;
+  border: solid 2px black;
+}
+
+#box1 {
+  background-color: cyan;
+  height: 100px;
+  width: 100px;
+}
+#box2 {
+  background-color: pink;
+  height: 100px;
+  width: 100px;
+}
+#box3 {
+  background-color: yellowgreen;
+  height: 100px;
+  width: 100px;
+}
+#box4 {
+  background-color: brown;
+  height: 100px;
+  width: 100px;
+}
+#box5 {
+  background-color: violet;
+  height: 100px;
+  width: 100px;
+}
