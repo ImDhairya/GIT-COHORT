@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      #nav {
+        display: flex;
+        /* justify-content: space-around; */
+        align-items: center;
+        height: 80px;
+        /* background-color: aqua; */
+      }
+
+      #nav-name,
+      #nav-links {
+        flex: 1; /* Ensures both parts take up 50% width */
+        text-align: center; /* Centers content inside each flex item */
+      }
+
+      #nav-links {
+        display: flex;
+        justify-content: center;
+      }
+
+      #name {
+        margin-left: 50px;
+      }
+
+      ul {
+        list-style-type: none;
+        display: flex;
+        justify-content: space-evenly;
+      }
+
+      #nav-name {
+        /* width: 50%; */
+        text-align: start;
+        /* padding-left: 35px; */
+      }
+
+      a {
+        color: gray;
+        text-decoration: none;
+        margin-left: 20px;
+        font-size: 17px;
+      }
+    </style>
+    <title>Navbar</title>
+  </head>
+  <body>
+    <nav>
+      <div id="nav">
+        <div id="nav-name">
+          <h2 id="name">Kushal Pagar</h2>
+        </div>
+        <div id="nav-links">
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#about">Experience</a></li>
+            <li><a href="#about">Projects</a></li>
+            <li><a href="#about">Skills</a></li>
+            <li><a href="#about">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </body>
+</html>
