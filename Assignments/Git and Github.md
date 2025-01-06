@@ -1,122 +1,122 @@
-## Welcome to Git and Github at ChaiCode Cohert!
+## Welcome to Git and GitHub at ChaiCode Cohort!
 
-This documentation is for you to go throught the git and github commands we use at **ChaiCode Cohert**.
+This documentation is for you to go through the Git and GitHub commands we use at **ChaiCode Cohort**.
 
-> Following the documentation will help you get familiar with the methodology to follow while commiting or handling a ticket, this follows a standardized approach to use so that its easier for every developer to have a streamline workflow to handle git and github.
+> Following the documentation will help you get familiar with the methodology to follow while committing or handling a ticket. This follows a standardized approach to use so that it’s easier for every developer to have a streamlined workflow to handle Git and GitHub.
 
 ---
 
 ## Understanding Git
 
-Git is a VCS **Version Control System** which helps in maintaining and tracking of files and directories.
+Git is a VCS **Version Control System** which helps in maintaining and tracking files and directories.
 
-### Understanding the 3 states of files.
+### Understanding the 3 States of Files
 
 1. Working Directory
 2. Staging Area
-3. git directory (Repository)
+3. Git Directory (Repository)
 
 The working directory has all the files that are present.
 
-Those files once git is initialized moves tovwards the staging area, then moves to towards commit
+Those files, once Git is initialized, move towards the staging area, then move towards a commit.
 
 ---
 
 > git init
 
-Running git init initializes an empty Git repository in the current folder, allowing files and directories to be tracked by Git.
+Running `git init` initializes an empty Git repository in the current folder, allowing files and directories to be tracked by Git.
 
 ---
 
-![Git files work flow](image.png)
+![Git files workflow](image.png)
 
-### Add a file to staging area
+### Add a File to Staging Area
 
-_staging area is the 1st part of git process, 2nd is git commit and 3rd is git push_
+_Staging area is the 1st part of the Git process, 2nd is Git commit, and 3rd is Git push._
 
 ## Staging Area
 
 > `git add myfile.txt`
 
-This will add myfile.txt to the staging area, making it ready for a commit.
+This will add `myfile.txt` to the staging area, making it ready for a commit.
 
 > `git add .`
 
 This command adds all the files and directories present in the folder to the staging area.
 
-**_The git way_**
+**_The Git Way_**
 
 ![Write -> add -> commit](image-1.png)
 
-Git works on the following cycle where we first write the code and then add the files to staging area where they will be monitored for the changes and modifications.
+Git works on the following cycle where we first write the code and then add the files to the staging area where they will be monitored for the changes and modifications.
 
-Finally we commit those changes to the desired _branch_ we want to commit it to.
+Finally, we commit those changes to the desired _branch_ we want to commit to.
 
-The entirety of Git works on this basic principle. **write** => **add** => **commit**
+The entirety of Git works on this basic principle: **write** => **add** => **commit**
 
 ---
 
 > `git status`
 
-This command tells us about the current files that are beign tracked and are there any modifications made to the currently tracked files.
+This command tells us about the current files that are being tracked and whether there are any modifications made to the currently tracked files.
 
-The files have **M** meaning modified **A** meaning ready for the commit. Symbols attached to it.
+The files have **M** meaning modified and **A** meaning ready for the commit. Symbols are attached to it.
 
 ---
 
 > `git commit -m "first commit"`
 
-This commits a already stagged file/s to a commit which generates a hash value for that commit which marks as a point to which we can return back to.
+This commits an already staged file/s to a commit, which generates a hash value for that commit that marks it as a point to which we can return back to.
 
-This also means that if we do an buggy edit to the program we can safely revert back to a funcnality at which it was working.
+This also means that if we make a buggy edit to the program, we can safely revert back to a functionality at which it was working.
 
 ---
 
 > `git log`
 
-This logs up the commits that we have made.
+This logs the commits that we have made.
 
-This shows the date, time, message and user who made those commits, and can be tracked down to the particular state or instance.
+This shows the date, time, message, and user who made those commits and can be tracked down to the particular state or instance.
 
 This shows the hash value which is used in there.
 
 ---
 
-> `git log -oneline`
+> `git log --oneline`
 
-Gives a single line commit data only showing the initial hash characters and the message in one line
+Gives a single-line commit data only showing the initial hash characters and the message in one line.
 
 > git cat-file _-value_ **hash code**
 
-### values
+### Values
 
--t
-Instead of the content, show the object type identified by object.
+- **-t**
+  Instead of the content, show the object type identified by the object.
 
--s
-Instead of the content, show the object size identified by object.
+- **-s**
+  Instead of the content, show the object size identified by the object.
 
--e
-Exit with zero status if object exists and is a valid object.
+- **-e**
+  Exit with zero status if the object exists and is a valid object.
 
--p
-Pretty-print the contents of <object> based on its type.
+- **-p**
+  Pretty-print the contents of <object> based on its type.
 
 ---
 
 > `git branch`
 
-Shows the current branch and all the availabel branches present.
+Shows the current branch and all the available branches present.
 
 > `git branch abc`
 
-Creates a new branch names abc which can be used to maybe addition of alternate feature or new ideas to be tested before releasing in main branch
+Creates a new branch named `abc`, which can be used to add alternate features or test new ideas before releasing in the main branch.
 
 ---
 
-> `git push `
+> `git push`
 
-Pushes the branch to the github repo which was initialised with.
+Pushes the branch to the GitHub repo which was initialized.
 
 ---
 
@@ -144,7 +144,7 @@ Shows changes between commits, commit and working tree, etc.
 
 > `git merge *branch-name*`
 
-Joins tow or more development histories together.
+Joins two or more development histories together.
 
 ---
 
@@ -154,7 +154,7 @@ Reapplies commits on top of another base tip.
 
 ---
 
-> `git revert `
+> `git revert`
 
 Creates a new commit that undoes the changes made by a previous commit.
 
@@ -162,28 +162,33 @@ Creates a new commit that undoes the changes made by a previous commit.
 
 > `git checkout *branch*`
 
-Checkout moves to a particular branch you want to go to.
+`Checkout` moves to a particular branch you want to go to.
 
 ---
 
-### Guidlines for making a commit
+### Guidelines for Making a Commit
 
-- The commit should be made in an authoritative tone, like an superior ordering a sub-ordinate.
+- The commit should be made in an authoritative tone, like a superior ordering a subordinate.
 
-- The commits tone should be past tense
+- The commit’s tone should be in present tense:
 
       e.g. -> Use the present tense ("Add feature" not "Added feature").
 
-- Capitalize the first letter
+- Capitalize the first letter.
 
 - Use prefixes like `fix: `, `feat: `, `chore: `, `docs:` for categorization.
 
-- `feat: Add tea selection feature fix: Resolve login issue for tea enthusists docs: README with chai varieties`
+Examples:
 
-### Best Practices:
+- `feat: Add tea selection feature`
+- `fix: Resolve login issue for tea enthusiasts`
+- `docs: README with chai varieties`
 
-- Emphaize the importance of regular commits.
+### Best Practices
+
+- Emphasize the importance of regular commits.
 
 - Encourage the use of descriptive commit messages.
 
-- Explain the importance of pulling updates retularly to avoid conflicts.
+- Explain the importance of pulling updates regularly to avoid conflicts.
+
