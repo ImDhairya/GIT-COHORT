@@ -24,7 +24,7 @@ Those files once git is initialized moves tovwards the staging area, then moves 
 
 > git init
 
-Git init initializes all the files and directories present in the current folder will be tracked.
+Running git init initializes an empty Git repository in the current folder, allowing files and directories to be tracked by Git.
 
 ---
 
@@ -38,7 +38,7 @@ _staging area is the 1st part of git process, 2nd is git commit and 3rd is git p
 
 > `git add myfile.txt`
 
-This will put the myfile.txt into the staging area where it will be ready to be ready a commit.
+This will add myfile.txt to the staging area, making it ready for a commit.
 
 > `git add .`
 
@@ -52,7 +52,7 @@ Git works on the following cycle where we first write the code and then add the 
 
 Finally we commit those changes to the desired _branch_ we want to commit it to.
 
-Entirity of git works on this baisc principle **write** => **add** => **commit**
+The entirety of Git works on this basic principle. **write** => **add** => **commit**
 
 ---
 
@@ -66,21 +66,19 @@ The files have **M** meaning modified **A** meaning ready for the commit. Symbol
 
 > `git commit -m "first commit"`
 
-This commits a already stagged file/s to a commit which generates a hash value for that commit which marks as a point to which we can return back to.  
+This commits a already stagged file/s to a commit which generates a hash value for that commit which marks as a point to which we can return back to.
 
 This also means that if we do an buggy edit to the program we can safely revert back to a funcnality at which it was working.
-
-
 
 ---
 
 > `git log`
 
-This logs up the commits that we have made. 
+This logs up the commits that we have made.
 
-This shows the date, time, message and user who made those commits, and can be tracked down to the particular state or instance. 
+This shows the date, time, message and user who made those commits, and can be tracked down to the particular state or instance.
 
-This shows the hash value which is used in there. 
+This shows the hash value which is used in there.
 
 ---
 
@@ -88,11 +86,10 @@ This shows the hash value which is used in there.
 
 Gives a single line commit data only showing the initial hash characters and the message in one line
 
-
-> git cat-file *-value* **hash code**
-
+> git cat-file _-value_ **hash code**
 
 ### values
+
 -t
 Instead of the content, show the object type identified by object.
 
@@ -104,7 +101,6 @@ Exit with zero status if object exists and is a valid object.
 
 -p
 Pretty-print the contents of <object> based on its type.
-
 
 ---
 
@@ -124,8 +120,70 @@ Pushes the branch to the github repo which was initialised with.
 
 ---
 
+> `git clone *repo-name*`
+
+Clones a repository into a newly created directory.
+
+> `git pull`
+
+Fetches from and integrates with another repository or a local branch.
+
+---
+
+> `git stash`
+
+Temporarily shelves (or stashes) changes you've made to your working directory.
+
+---
+
+> `git diff`
+
+Shows changes between commits, commit and working tree, etc.
+
+---
+
+> `git merge *branch-name*`
+
+Joins tow or more development histories together.
+
+---
+
+> `git rebase *branch-name*`
+
+Reapplies commits on top of another base tip.
+
+---
+
+> `git revert `
+
+Creates a new commit that undoes the changes made by a previous commit.
+
+---
+
 > `git checkout *branch*`
 
-Checkout moves to a particular branch you want to go to. 
+Checkout moves to a particular branch you want to go to.
 
- 
+---
+
+### Guidlines for making a commit
+
+- The commit should be made in an authoritative tone, like an superior ordering a sub-ordinate.
+
+- The commits tone should be past tense
+
+      e.g. -> Use the present tense ("Add feature" not "Added feature").
+
+- Capitalize the first letter
+
+- Use prefixes like `fix: `, `feat: `, `chore: `, `docs:` for categorization.
+
+- `feat: Add tea selection feature fix: Resolve login issue for tea enthusists docs: README with chai varieties`
+
+### Best Practices:
+
+- Emphaize the importance of regular commits.
+
+- Encourage the use of descriptive commit messages.
+
+- Explain the importance of pulling updates retularly to avoid conflicts.
