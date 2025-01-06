@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Home</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      color: rgb(244, 244, 245);
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    #bd {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(17, 24, 40);
+      width: 100%;
+      height: 100%;
+    }
+    p {
+      text-align: center;
+    }
+    #data {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 60%;
+      font-size: 20px;
+    }
+    #heading {
+      font-size: 50px;
+      margin-bottom: 23px;
+    }
+
+    #button {
+      font-size: 14px;
+      padding: 6px;
+      width: 130px;
+      height: 35px;
+      border-radius: 50px;
+      margin: 25px;
+      border: none;
+      background-color: #3b82f6;
+      cursor: cell;
+    }
+
+    #about {
+      color: black;
+      font-size: 40px;
+      margin-top: 150px;
+      text-align: center;
+      animation: upabove 0.7s forwards;
+    }
+
+    @keyframes upabove {
+      from {
+        transform: translateY(70px);
+      }
+    }
+
+    @keyframes rightimage {
+      from {
+        transform: translateX(130px);
+      }
+    }
+
+    #img {
+      height: 150px;
+      width: 150px;
+      flex: 1;
+    }
+    #para {
+      flex: 2;
+      color: black;
+    }
+    #adjust {
+      top: 0;
+      display: flex;
+      margin-top: 150px;
+      /* height: 100vh; */
+    }
+  </style>
+  <body>
+    <div id="bd">
+      <div id="heading"><p>Dhairya Pandya</p></div>
+      <div id="data">
+        <p>
+          Excellence in Mobile Solutions: Expertly Crafted Native & Flutter Apps
+          with Integrity, Innovation, and Best Practices.
+        </p>
+      </div>
+      <div>
+        <button id="button">Get In Touch</button>
+      </div>
+    </div>
+  
+  </body>
+</html>

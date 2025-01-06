@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+  </head>
+  <link
+    rel="stylesheet"
+    href="delete.css"
+  />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: gilroy;
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: black;
+    }
+
+    #box {
+      height: 300px;
+      width: 300px;
+      background-color: lightseagreen;
+      position: absolute;
+      animation: move 3s forwards infinite ease-in-out;
+    }
+
+    @keyframes move {
+      0% {
+        left: 0;
+        margin-top: 40px;
+      }
+      50% {
+        left: calc(100% - 30%);
+        scale: -1.5;
+        background-color: salmon;
+        rotate: 30deg;
+        margin-top: 40px;
+      }
+      100% {
+        scale: 1;
+        left: 0;
+        rotate: 90deg;
+        margin-top: 40px;
+      }
+    }
+
+    h1 {
+      font-size: 100px;
+      color: white;
+      position: relative;
+    }
+
+    h1::before {
+      /* content: 'PP '; */
+    }
+
+    h1::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 10px;
+      bottom: 0;
+      background-color: white;
+      left: 0;
+    }
+
+    h1:hover::after {
+      animation: linemove 1s forwards;
+    }
+
+    @keyframes linemove {
+      0% {
+        width: 0;
+      }
+      50% {
+        width: 100%;
+        left: 0;
+      }
+      100% {
+        width: 0%;
+        left: 100%;
+      }
+    }
+  </style>
+  <body>
+    <!-- <div id="box"></div> -->
+    <h1>Hello Youtube!</h1>
+  </body>
+</html>

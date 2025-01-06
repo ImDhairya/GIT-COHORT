@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>About</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+      }
+      #outer {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        margin: 20px;
+      }
+      #inner {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+      }
+      #para {
+        flex: 2;
+        /* background-color: blue; */
+        padding: 20px;
+        color: rgb(0, 0, 0);
+      }
+      #img {
+        flex: 1; /* 1 part of the space */
+        display: flex;
+        justify-content: center; /* Center the image horizontally */
+        align-items: center; /* Center the image vertically */
+        animation: catright 0.5 forwards;
+      }
+      @keyframes catright {
+        from {
+          transform: translateX(30px);
+        }
+      }
+      #image {
+        max-width: 100%; /* Ensure the image doesn't overflow */
+        height: auto; /* Maintain aspect ratio */
+      }
+      #about {
+        animation: catright 0.5 forwards;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="outer">
+      <div id="about">About Me</div>
+      <div id="inner">
+        <div id="img">
+          <img
+            id="image"
+            src="./image.png"
+            alt=""
+          />
+        </div>
+        <div id="para">
+          <p>
+            I am a seasoned Mobile Developer and Entrepreneur with extensive
+            experience in building native and Flutter applications. My passion
+            lies in creating high-quality, user-centric mobile solutions.
+            Additionally, I have a strong background in backend engineering
+            using Python and Node.js, and have worked on fine-tuning AI models
+            and implementing Retrieval-Augmented Generation (RAG).
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
