@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+
+    <style>
+      * {
+        background-color: gray;
+        /* margin: 0; */
+        /* padding: 0; */
+      }
+      .container {
+        display: grid;
+        gap: 10px;
+        background-color: blue;
+        /* grid-template-rows: 50px 100px 3px 30px 100px 32px; */
+        /* grid-template-columns: 1fr 2fr 1fr; */
+        /* grid-template-rows: 30px 200px; */
+        /* grid-template-rows: minmax(100px, auto); */
+        /* grid-template-columns: minmax(auto, 50%) 1fr 3em; */
+        grid-template-rows: repeat(6, 200px);
+        grid-template-columns: repeat(3, 200px);
+        /* grid-template-columns: 30px repeat(3, 1fr) 30px; */
+        /* grid-row-gap: 30px; */
+        /* grid-column-gap: 20px; */
+        /* grid-gap: 30px 30px; */
+      }
+
+
+      .one {
+        grid-row-start: 1;
+        grid-row-end: 3;
+      }
+
+      .two {
+        grid-row-start: 1;
+        grid-row-end: 4;
+
+        /* grid-row: 1 / 4; */
+      }
+
+      .three {
+        grid-area: 3/3/2/2;
+      }
+
+      .container > div {
+        background-color: beige;
+      }
+    </style>
+  </head>
+  <body>
+    <div clas="container">
+      <div class="one">One</div>
+      <div class="two">Two</div>
+      <div class="three">Three</div>
+      <div class="four">Four</div>
+      <div class="five">Five</div>
+      <div class="six">Six</div>
+    </div> 
+  </body>
+</html>

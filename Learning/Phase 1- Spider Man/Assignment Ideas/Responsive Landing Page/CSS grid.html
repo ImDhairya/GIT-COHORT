@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>CSS grid</title>
+  </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      background-color: bisque;
+    }
+
+    .container {
+      background-color: aquamarine;
+      display: grid;
+      /* grid-template-columns: 1fr 2fr 1fr;
+      grid-template-rows: 200px 100px; */
+
+      /* grid-template-columns: minmax(100px, 200px) 200px;
+      grid-template-rows: minmax(30px, 60px) 100px auto; */
+
+      /* grid-template-rows: repeat(4, 100px);
+      grid-template-columns: repeat(3, 1fr); */
+
+      grid-template-rows: 100px 100px;
+      grid-template-columns: 100px 100px 100px;
+
+      grid-gap: 20px;
+
+      /* We want the position of one at 5 */
+
+      grid-row-start: 2;
+      grid-column-start: 2;
+      grid-row-end: 3;
+      grid-column-end: 3;
+    }
+
+    #one {
+      grid-row-start: 2;
+      grid-column-start: 2;
+      grid-row-end: 5;
+      grid-column-end: 5;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div id="one">One</div>
+      <div id="two">Two</div>
+      <div id="three">Three</div>
+      <div id="four">Four</div>
+      <div id="five">Five</div>
+      <div id="six">Six</div>
+    </div>
+  </body>
+</html>

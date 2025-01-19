@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Sidebar Example</title>
+    <style>
+      body {
+        display: flex; /* Use flexbox for layout */
+        margin: 0; /* Remove default body margin */
+      }
+
+      aside {
+        width: 200px; /* Set the width of the sidebar */
+        background-color: #f0f0f0; /* Light gray background */
+        padding: 20px;
+        box-sizing: border-box; /* Include padding in width calculation */
+      }
+
+      main {
+        flex-grow: 1; /* Allow main content to take up remaining space */
+        padding: 20px;
+      }
+
+      /* Responsive adjustments (optional) */
+      @media (max-width: 768px) {
+        body {
+          flex-direction: column; /* Stack sidebar and main content vertically on smaller screens */
+        }
+        aside {
+          width: 100%; /* Sidebar takes full width */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav aria-label="Visit Example Website">
+      <a href="">Find us</a>
+      <a href="">Contact us</a>
+      <a href="">Give your money</a>
+    </nav>
+
+    <aside>
+      <h2>Sidebar</h2>
+      <ul>
+        <li><a href="#">Link 1</a></li>
+        <li><a href="#">Link 2</a></li>
+        <li><a href="#">Link 3</a></li>
+      </ul>
+      <p>Some additional information in the sidebar.</p>
+    </aside>
+
+    <main>
+      <h1>Main Content</h1>
+      <p>
+        This is the main content area of the page. You can put your article,
+        images, etc. here. Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum nisi odit, officiis ipsam eum labore a autem modi nostrum, aliquid, sunt odio tempore corporis dolore optio veniam delectus quibusdam facilis. Eligendi a sit maiores. Voluptas, soluta esse! Laboriosam, atque eum. Perspiciatis quis suscipit sit?
+      </p>
+      <p>More main content.</p>
+    </main>
+  </body>
+</html>

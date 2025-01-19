@@ -1,0 +1,164 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-color: gray;
+}
+
+#nav {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+}
+
+#nav #left,
+#right {
+  margin: 3vh 5vh;
+  color: white;
+}
+
+#right ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+#right ul li {
+  padding-left: 4vh;
+  text-decoration: none;
+  list-style: none;
+  cursor: pointer;
+}
+
+#right ul li a {
+  text-decoration: none;
+  color: white;
+}
+
+#section1 {
+  background-color: aquamarine;
+  position: relative;
+  font-family: futura;
+  height: 100vh;
+  width: 100%;
+}
+
+#section1 > #head {
+  position: absolute;
+  margin-left: 30vh;
+  z-index: 99;
+  margin-top: 30vh;
+}
+
+#section1 > #data {
+  position: absolute;
+  z-index: 99;
+  margin-left: 30vh;
+  margin-top: 38vh;
+}
+
+#section1 > #animated-design1 {
+  position: absolute;
+  margin-left: 160vh;
+  margin-top: 58vh;
+  background-color: rgb(255, 4, 117);
+  animation: animatedesign1 1.7s infinite;
+}
+
+#section1 > #animated-design2 {
+  position: absolute;
+  margin-left: 70vh;
+  margin-top: 38vh;
+  background-color: rgb(86, 233, 33);
+  animation: animatedesign1 1.5s infinite;
+}
+#section1 > #animated-design3 {
+  position: absolute;
+  margin-left: 170vh;
+  margin-top: 28vh;
+  background-color: rgb(0, 106, 255);
+  animation: animatedesign1 2s infinite 0.7s;
+}
+
+@keyframes animatedesign1 {
+  from {
+    height: 50px;
+    width: 55px;
+    transform: scale(4);
+    rotate: 10deg;
+  }
+  to {
+    transform: translate(50px, 30px);
+    rotate: 990deg;
+    scale: 0;
+  }
+}
+
+#section2 {
+  background-color: aquamarine;
+  display: flex;
+  justify-content: center;
+  /* height: 100%; */
+  height: 200vh;
+  width: 100%;
+}
+
+#section2 .container {
+  /* background-color: rebeccapurple; */
+  display: grid;
+  width: 100%;
+  /* grid-auto-flow: column; */
+  grid-template-columns: repeat(3, 400px);
+  grid-template-rows: repeat(2, 450px);
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 10vh;
+  grid-column-gap: 20px;
+  grid-row-gap: 0px;
+}
+
+#section2 .product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 3vh;
+}
+
+#section2 #product-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#section2 #pro img {
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+}
+
+#section2 #product-name,
+#product-price {
+  font-size: small;
+}
+
+/* Medium size is 1480 by  */
+
+@media (min-height: 600px) and (max-height: 800px) {
+  body {
+  background-color: blueviolet;
+  }
+}

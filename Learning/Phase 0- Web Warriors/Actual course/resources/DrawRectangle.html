@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas Drawing</title>
+    <style>
+      body {
+        margin: 0;
+      } /* Remove default body margin */
+      canvas {
+        display: block;
+      } /* Prevent default canvas margin */
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
+    <script>
+      const canvas = document.getElementById("myCanvas");
+      const ctx = canvas.getContext("2d");
+
+      // Set canvas dimensions (important!)
+      canvas.width = window.innerWidth; // Or a fixed width
+      canvas.height = window.innerHeight; // Or a fixed height
+
+      // Function to draw a rectangle
+      function drawRectangle(x, y, width, height, color) {
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, width, height);
+      }
+
+      // Function to draw a circle
+      function drawCircle(x, y, radius, color) {
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+
+      // Function to draw a line
+      function drawLine(x1, y1, x2, y2, color, lineWidth = 1) {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = lineWidth;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      }
+
+      // Function to draw text
+      function drawText(text, x, y, font, color) {
+        ctx.fillStyle = color;
+        ctx.font = font;
+        ctx.fillText(text, x, y);
+      }
+
+      // Example usage:
+      drawRectangle(50, 50, 120, 75, "red"); // x, y, width, height, color
+      // drawCircle(200, 100, 50, "blue"); // x, y, radius, color
+      // drawLine(300, 50, 400, 150, "green", 5); // x1, y1, x2, y2, color, lineWidth
+      drawText("Hello Canvas!", 10, 20, "20px Arial", "black");
+
+      // Clear the canvas (example)
+      // ctx.clearRect(0, 0, canvas.width, canvas.height);
+    </script>
+  </body>
+</html>
