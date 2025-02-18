@@ -3,7 +3,6 @@
 # Objective and Purpose
 
 - Want to make an online application for a Saloon
-
 - Get the offline shop to online
 
 ---
@@ -34,27 +33,22 @@
 - price of service
 - contact no
 
-
-
-
 ### P2 (Priority 2 contains the features that are not a must have but might integrate in version 2)
 
-- live avaiblity 
+- live avaiblity
 - Automatic slot booking and reservation
 - Confirm slot reservation
 
 # User Stories
 
-- When I wanted to go for a hair cut, I had to wait in line for 30 minutes befor my turn came. 
-
+- When I wanted to go for a hair cut, I had to wait in line for 30 minutes befor my turn came.
 - I cannot know exact time for my turn
-
-- Couldn't get my no at myturn 
+- Couldn't get my no at myturn
 
 # Technical Requirements
 
 - HTML
-- CSS 
+- CSS
 - JavaScript
 - React Vite
 - Tailwind CSS
