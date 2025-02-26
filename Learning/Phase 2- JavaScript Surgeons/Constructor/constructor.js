@@ -36,3 +36,13 @@ Counter.prototype.increment = function () {
 Counter.prototype.decrement = function () {
   this.count = this.count - 1;
 };
+
+const count = new Counter();
+
+count.increment();
+count.increment();
+count.increment();
+count.increment();
+console.log(count);
+count.decrement();
+console.log(count);
