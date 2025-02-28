@@ -8,7 +8,7 @@ function ptaNhi(fn, delay) {
   // If a function is returned, it forms a closure,
   // meaning it retains access to variables declared in the outer function
   return function (...args) {
-    // console.log(args, "Hello JI");
+    console.log(...args, "Hii  ");
     clearTimeout(myId);
     myId = setTimeout(() => {
       fn.apply(this, args);
@@ -18,7 +18,7 @@ function ptaNhi(fn, delay) {
 
 const sachMeNahiPata = ptaNhi(() => greet("Dhairya"), 2000); // here we are giving function expression that is yet to be called
 
-sachMeNahiPata();
+// sachMeNahiPata("ARGUMENT Passed");
 sachMeNahiPata();
 sachMeNahiPata();
 
