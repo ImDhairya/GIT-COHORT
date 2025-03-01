@@ -5,17 +5,24 @@ const addBtn = document.getElementById("addButton");
 const inputData = document.getElementById("taskInput");
 const taskList = document.getElementById("taskList");
 const emptyList = document.getElementsByClassName("empty-list");
+const deleteBtn = document.getElementById("delbtn");
+const checkId = document.getElementById("checkId");
 
 let isEmpty = true;
 
-console.log(emptyList.remove);
+// console.log(emptyList.remove);
 
 function createItem(name) {
   let li = document.createElement("li");
   let Delete = document.createElement("button");
+  Delete.id = "delbtn";
   let check = document.createElement("input");
+  check.id = "checkId";
   check.type = "checkbox";
   Delete.innerText = "Delete";
+  Delete.addEventListener("click", (e) => {
+    console.log("HEFEHSED");
+  });
 
   li.className = "task-item";
   console.log(li);
@@ -27,8 +34,6 @@ function createItem(name) {
 
 addBtn.addEventListener("click", () => {
   taskList.appendChild(createItem(inputData.value));
-  taskList.children.style.display = "flex";
-  taskList.children.style.justi
 
   console.log(inputData.value);
   if (taskList.children.length > 1) {
@@ -74,7 +79,6 @@ Mukul Padwal
 11:48 PM
 ...args me sirf wahi hota hai jo aap function ko pass karte ho, function ya delay tabhi hoga jab aap khud doge.
 */
-
 
 /* 
 Args ke undar function aur delay hota hai kay?
