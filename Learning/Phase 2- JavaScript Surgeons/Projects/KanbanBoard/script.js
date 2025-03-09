@@ -29,6 +29,7 @@ function attachDragEvents(target) {
   if (target.classList.contains("board")) {
     target.addEventListener("dragover", (event) => {
       event.preventDefault();
+      const bottomTask = insertAbove(board, event.clientY);
       const flyingElem = document.querySelector(".flying");
       if (flyingElem && flyingElem.classList.contains("item")) {
         target.appendChild(flyingElem);
@@ -36,6 +37,26 @@ function attachDragEvents(target) {
     });
   }
 }
+
+const insertAbove = (board, mouseY) => {
+  const els = board.querySelectorAll(".task:not(.flying)");
+
+  let closentTask = null;
+  let closeestOffset = Number.NEGATIVE_INFINITY;
+
+  els.forEach((task) => {
+    const {top} = task.getBoundingClientReact();
+
+    const offset = mouseY - top;
+
+    if (offset < 0 && offset > closeestOffset) {
+      closeestOffset = offset;
+      closentTask = task;
+    }
+  });
+
+  return closentTask;
+};
 
 function attachDeleteButton(target) {
   target.style.padding = "10px";
@@ -112,7 +133,9 @@ allItems.forEach((ele) => {
 });
 
 allBoards.forEach((board) => {
-  board.addEventListener("dragover", () => {
+  board.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    const bottomTask = insertAbove(zone, e.clientY);
     const flyingElem = document.querySelector(".flying");
     board.appendChild(flyingElem);
   });
