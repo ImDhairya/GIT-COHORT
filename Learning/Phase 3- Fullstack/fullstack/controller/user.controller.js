@@ -70,7 +70,6 @@ const registerUser = async (req, res) => {
     console.log(mailOptions, "FEE");
 
     await transporter.sendMail(mailOptions);
-    console.log("WORKIBG HEF");
     return res.status(201).json({
       message: "Successfully sent mail ",
       success: true,
@@ -198,13 +197,155 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  // verify token
-  // clear the cookies from the browser
+  try {
+    res.cookie("test", "", {
+      expiresIn: new Date(0),
+    });
 
-  // send response
+    res.status(200).json({
+      message: "Logged out successfully",
+      success: true,
+    });
 
-  const {token} = res.cookieOptions;
-  console.log(token);
+    console.log(req.cookie, "HELOW ORDDS");
+  } catch (error) {
+    return res.status(400).json({
+      message: "Unable to logout",
+      error,
+    });
+  }
 };
 
-export {registerUser, verifyUser, login, logout};
+const getMe = async (req, res) => {
+  try {
+    const {id, role} = req.user;
+    const user = await User.findById({_id: id}).select("-password");
+    console.log(user);
+
+    if (!user) {
+      return res.status(401).json({
+        message: "Unverified login attempt",
+      });
+    }
+
+    return res.status(200).json({
+      message: "The user details fetched successfullt",
+      success: true,
+      user,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: "Unable to get profile",
+      error,
+    });
+  }
+};
+
+const forgotPassword = async (req, res) => {
+  try {
+    // find user based on email,
+    // reset token + reset expiry => Date.now()+ 10 * 60 * 1000
+    // /user .save
+    // send mail design url
+    const {email} = req.body;
+    const user = await User.findOne({email});
+
+    if (!user) {
+      return res.status(400).json({
+        message: "THe user is not present",
+      });
+    }
+
+    const newToken = crypto.randomBytes(32).toString("hex");
+
+    console.log(newToken, "FEEF");
+
+    user.resetPasswordToken = newToken;
+    user.resetPasswordExpires = Date.now() + 10 * 60 * 1000; // 10 mins from now
+    await user.save();
+
+    const transporter = nodemailer.createTransport({
+      host: process.env.MAILTRAP_HOST,
+      port: 587,
+      secure: false, // true for port 465, false for other ports
+      auth: {
+        user: process.env.MAILTRAP_USER,
+        pass: process.env.MAILTRAP_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.MAILTRAP_SENDEREMAIL,
+      to: user.email,
+      subject: "Hello here's your token for forgetting the password",
+      html: `Please click the below link ${process.env.BASE_URL}/api/v1/users/verify/${newToken}`,
+    };
+
+    const mailSent = await transporter.sendMail(mailOptions);
+
+    return res.status(201).json({
+      message: "User logged in successfully",
+      success: true,
+    });
+
+    return res.status(200).json({
+      message: "THis is working",
+    });
+  } catch (error) {
+    console.log(error, "EFEFEFR");
+    return res.status(400).json({
+      message: "Unable to get profile",
+      error,
+    });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  const {token} = req.params;
+  const {password} = req.body;
+  try {
+    // collect token from params
+    // password from req.body
+
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: {
+        $gt: Date.now(),
+      },
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Unable to reset jui",
+        success: false,
+      });
+    }
+
+    // set password in user
+    // resetToken field, resetExpiury => empty
+    // save
+    user.password = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+
+    return res.status(200).json({
+      message: "password reset successfully",
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: "Unable to get profile",
+      success: false,
+    });
+  }
+};
+
+export {
+  registerUser,
+  verifyUser,
+  login,
+  logout,
+  getMe,
+  forgotPassword,
+  resetPassword,
+};
