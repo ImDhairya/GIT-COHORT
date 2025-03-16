@@ -3,6 +3,7 @@ import dotnev from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import userRoutes from "./routes/user.routes.js";
+import cookieParser from "cookie-parser";
 import Database from "./utils/db.js"; // we might get an erro when we don't write .js in some cases
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(
     extended: true,
   })
 );
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.send("HFDS");
