@@ -20,7 +20,13 @@
         id="colorInput"
       />
       <p id="colorCode">#000000</p>
-      <button id="copyButton">Copy Color Code</button>
+      <button
+        class="buttons"
+        onclick="copyColor()"
+        id="copyButton"
+      >
+        Copy Color Code
+      </button>
 
       <!-- Complementary COlor -->
       <div class="complementary-colors">
@@ -30,11 +36,17 @@
 
       <!-- Favorite Colors List -->
 
-      <button id="saveColorButton">Save Color</button>
+      <button
+        class="buttons"
+        id="saveColorButton"
+      >
+        Save Color
+      </button>
       <div class="favorites">
         <h2>Favorite Colors</h2>
         <div id="favoritesContainer"></div>
       </div>
     </div>
   </body>
+  <script src="script.js"></script>
 </html>
