@@ -39,3 +39,5 @@ function copyColor() {
   navigator.clipboard.writeText(val.textContent);
   console.log(val.textContent, "FEF")
 }
+
+console.log(navigator.keyboard)
