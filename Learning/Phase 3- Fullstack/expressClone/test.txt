@@ -1,0 +1,6 @@
+Hello world this is the write file of the linux
+ohello wrorld this 
+This is the world we live in 
+
+Now this shoudl show lines taht are present in here
+:
