@@ -1,0 +1,17 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.inputs {
+  margin: 10px;
+  display: flex;
+  width: fit-content;
+  flex-direction: column;
+}
+
+.buttons button {
+  width: 30px;
+}
