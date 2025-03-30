@@ -1,7 +1,10 @@
 {
   "name": "expressclone",
   "version": "1.0.0",
+<<<<<<< HEAD
   "type": "module",
+=======
+>>>>>>> 5c1321866fc527e11196413b7cab74cca6940135
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"
