@@ -21,12 +21,8 @@ const userRegistrationValidator = () => {
 
 const userLoginValidator = () => {
   return [
-    body("email")
-      .trim()
-      .notEmpty()
-      .withMessage("Email is not valid")
-      .isEmail()
-      .withMessage("Email is not valid"),
+    body("email").isEmail().withMessage("Email is not valid"),
+    body("password").notEmpty().withMessage("Password cannot be empty"),
   ];
 };
 
