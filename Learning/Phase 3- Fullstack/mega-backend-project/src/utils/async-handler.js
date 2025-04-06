@@ -7,3 +7,16 @@ function asyncHandler(requestHandler) {
 }
 
 export { asyncHandler };
+
+// Other way of creating  an async handler for try-catch blocks
+
+const asyncTryCatchHandler = (reqfn) => async (req, res, next) => {
+  try {
+    await reqfn(req, res, next)
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+      success: false,
+    });
+  }
+};

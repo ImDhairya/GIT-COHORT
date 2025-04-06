@@ -1,72 +1,51 @@
-import { asyncHandler } from "../utils/async-handler.js";
+import mongoose from "mongoose";
+
+import { asyncHandler } from "../utils/async-handler";
+
 const registerUser = asyncHandler(async (req, res) => {
   const { email, username, password, role } = req.body;
 
-  //validation
+  // registrationValidation(body);
 });
 
 const loginUser = asyncHandler(async (req, res) => {
   const { email, username, password, role } = req.body;
 
-  //validation
+  // registrationValidation(body);
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
   const { email, username, password, role } = req.body;
 
-  //validation
+  // registrationValidation(body);
 });
 
 const verifyEmail = asyncHandler(async (req, res) => {
   const { email, username, password, role } = req.body;
 
-  //validation
+  // registrationValidation(body);
 });
 
 const resendEmailVerification = asyncHandler(async (req, res) => {
   const { email, username, password, role } = req.body;
 
-  //validation
-});
-const resetForgottenPassword = asyncHandler(async (req, res) => {
-  const { email, username, password, role } = req.body;
-
-  //validation
+  // registrationValidation(body);
 });
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
   const { email, username, password, role } = req.body;
-
-  //validation
 });
 
 const forgotPasswordRequest = asyncHandler(async (req, res) => {
   const { email, username, password, role } = req.body;
-
-  //validation
 });
 
 const changeCurrentPassword = asyncHandler(async (req, res) => {
   const { email, username, password, role } = req.body;
-
-  //validation
 });
 
-const getCurrentUser = asyncHandler(async (req, res) => {
+const getProfile = asyncHandler(async (req, res) => {
   const { email, username, password, role } = req.body;
-
-  //validation
 });
 
-export {
-  changeCurrentPassword,
-  forgotPasswordRequest,
-  getCurrentUser,
-  loginUser,
-  logoutUser,
-  refreshAccessToken,
-  registerUser,
-  resendEmailVerification,
-  resetForgottenPassword,
-  verifyEmail,
-};
+export { registerUser };
