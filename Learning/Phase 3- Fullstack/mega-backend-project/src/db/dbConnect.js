@@ -7,7 +7,7 @@ const mongooseConnect = () => {
       console.log("Connected to mongodb successfully ");
     })
     .catch((error) => {
-      console.log("Error connecting mongodb" , error);
+      console.log("Error connecting mongodb", error);
       process.exit(1);
     });
 };

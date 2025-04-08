@@ -1,6 +1,12 @@
 import Mailgen from "mailgen";
 import nodemailer from "nodemailer";
 
+// sendMail({
+//   email: user.email,
+//   subject: "FEFEF",
+//   mailGenContent: emailVerificationMailGenContent(username, "sfsdf"),
+// });
+
 /**
  *
  * @param {{email: string; subject: string; mailgenContent: Mailgen.Content; }} options
@@ -79,6 +85,20 @@ const emailVerificationMailgenContent = (username, verificationUrl) => {
   };
 };
 
+const emailRegistrationMailgenContent = (username) => {
+  return {
+    body: {
+      name: username,
+      intro: "Welcome to our app! We're very excited to have you on board.",
+      action: {
+        instructions: "Welcome greetings:",
+      },
+      outro:
+        "Need help, or have questions? Just reply to this email, we'd love to help.",
+    },
+  };
+};
+
 /**
  *
  * @param {string} username
@@ -106,8 +126,25 @@ const forgotPasswordMailgenContent = (username, passwordResetUrl) => {
   };
 };
 
+const resetPasswordSuccessMailgenContent = (username) => {
+  return {
+    body: {
+      name: username,
+      intro: "We have successfully updated your password.",
+      action: {
+        instructions:
+          "If you didn't update the password contact us immediately",
+      },
+      outro:
+        "Need help, or have questions? Just reply to this email, we'd love to help.",
+    },
+  };
+};
+
 export {
   emailVerificationMailgenContent,
   forgotPasswordMailgenContent,
+  emailRegistrationMailgenContent,
+  resetPasswordSuccessMailgenContent,
   sendEmail,
 };

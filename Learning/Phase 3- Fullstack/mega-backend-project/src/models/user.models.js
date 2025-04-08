@@ -58,6 +58,9 @@ const userSchema = new mongoose.Schema(
     refreshToken: {
       type: String,
     },
+    accessToken: {
+      type: String,
+    },
     emailVerificationToken: {
       type: String,
     },
@@ -111,7 +114,7 @@ userSchema.methods.generateTemporaryToken = function () {
     .createHash("sha256")
     .update(unHashedToken)
     .digest("hex");
-    
+
   const tokenExpiry = Date.now() + 10 * 60 * 1000;
 
   return { hashedToken, unHashedToken, tokenExpiry };
