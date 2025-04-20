@@ -1,47 +1,262 @@
+import { Project } from "../models/project.models";
+import { ProjectMember } from "../models/projectmember.models";
+
 const getProjects = async (req, res) => {
-  // get all projects
+  try {
+    const projects = await Project.find({});
+    return res.status(200).json({
+      message: "Found all projects",
+      success: true,
+      data: projects,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error getting projects",
+      success: false,
+    });
+  }
 };
 
 const getProjectById = async (req, res) => {
-  // get project by id
+  const { id } = req.params;
+
+  if (!id) {
+    return res.status(400).json({
+      message: "Project ID not provided",
+      success: false,
+    });
+  }
+
+  try {
+    const project = await Project.findById(id);
+
+    if (!project) {
+      return res.status(404).json({
+        message: "Project not found",
+        success: false,
+      });
+    }
+
+    return res.status(200).json({
+      message: "Project found",
+      success: true,
+      data: project,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error retrieving project",
+      success: false,
+    });
+  }
 };
 
 const createProject = async (req, res) => {
-  // create project
+  const { name, description } = req.body;
+  const userId = req.user.id;
+
+  if (!name || !description) {
+    return res.status(400).json({
+      message: "Please provide all required fields",
+      success: false,
+    });
+  }
+
+  try {
+    const project = await Project.create({
+      name,
+      description,
+      createdBy: userId,
+    });
+
+    return res.status(201).json({
+      message: "Project created successfully",
+      success: true,
+      data: project,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error creating project",
+      success: false,
+    });
+  }
 };
 
 const updateProject = async (req, res) => {
-  // update project
+  const { name, description } = req.body;
+  const userId = req.user.id;
+
+  try {
+    const project = await Project.findOneAndUpdate(
+      { createdBy: userId },
+      { name, description },
+      { new: true },
+    );
+
+    if (!project) {
+      return res.status(404).json({
+        message: "Project not found for current user",
+        success: false,
+      });
+    }
+
+    return res.status(200).json({
+      message: "Project updated successfully",
+      success: true,
+      data: project,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error updating project",
+      success: false,
+    });
+  }
 };
 
 const deleteProject = async (req, res) => {
-  // delete project
+  const { id } = req.params;
+
+  if (!id) {
+    return res.status(400).json({
+      message: "Project ID not provided",
+      success: false,
+    });
+  }
+
+  try {
+    const project = await Project.findByIdAndDelete(id);
+
+    if (!project) {
+      return res.status(404).json({
+        message: "Project not found",
+        success: false,
+      });
+    }
+
+    return res.status(200).json({
+      message: "Project deleted successfully",
+      success: true,
+      data: project,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error deleting project",
+      success: false,
+    });
+  }
 };
 
 const getProjectMembers = async (req, res) => {
-  // get project members
+  try {
+    const members = await ProjectMember.find({});
+    return res.status(200).json({
+      message: "Found all project members",
+      success: true,
+      data: members,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error fetching project members",
+      success: false,
+    });
+  }
 };
 
 const addMemberToProject = async (req, res) => {
-  // add member to project
+  const { project, role } = req.body;
+  const user = req.user.id;
+
+  if (!project || !role) {
+    return res.status(400).json({
+      message: "Project and role are required",
+      success: false,
+    });
+  }
+
+  try {
+    const newMember = await ProjectMember.create({
+      user,
+      project,
+      role,
+    });
+
+    return res.status(201).json({
+      message: "Project member added",
+      success: true,
+      data: newMember,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error adding project member",
+      success: false,
+    });
+  }
 };
 
 const deleteMember = async (req, res) => {
-  // delete member from project
+  const user = req.user.id;
+
+  try {
+    const deletedMember = await ProjectMember.findOneAndDelete({ user });
+
+    if (!deletedMember) {
+      return res.status(404).json({
+        message: "Member not found",
+        success: false,
+      });
+    }
+
+    return res.status(200).json({
+      message: "Member removed from project",
+      success: true,
+      data: deletedMember,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error deleting member",
+      success: false,
+    });
+  }
 };
 
 const updateMemberRole = async (req, res) => {
-  // update member role
+  const user = req.user.id;
+  const { memberRole } = req.body;
+
+  try {
+    const updatedMember = await ProjectMember.findOneAndUpdate(
+      { user },
+      { role: memberRole },
+      { new: true },
+    );
+
+    if (!updatedMember) {
+      return res.status(404).json({
+        message: "Member not found",
+        success: false,
+      });
+    }
+
+    return res.status(200).json({
+      message: "Member role updated",
+      success: true,
+      data: updatedMember,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error updating member role",
+      success: false,
+    });
+  }
 };
 
 export {
-  addMemberToProject,
-  createProject,
-  deleteMember,
-  deleteProject,
-  getProjectById,
-  getProjectMembers,
   getProjects,
-  updateMemberRole,
+  getProjectById,
+  createProject,
   updateProject,
+  deleteProject,
+  getProjectMembers,
+  addMemberToProject,
+  deleteMember,
+  updateMemberRole,
 };

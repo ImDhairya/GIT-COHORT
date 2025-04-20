@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const projectNoteSchema = new mongoose.Schema(
   {
-    projcet: {
+    project: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Project",
       required: true,
