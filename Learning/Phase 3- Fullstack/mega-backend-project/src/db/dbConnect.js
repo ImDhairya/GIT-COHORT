@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-const mongooseConnect = () => {
-  mongoose
+const  mongooseConnect = () => {
+  return mongoose
     .connect(process.env.MONGO_DB)
     .then(() => {
       console.log("Connected to mongodb successfully ");

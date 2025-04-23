@@ -23,10 +23,10 @@ const sendEmail = async (options) => {
 
   // For more info on how mailgen content work visit https://github.com/eladnava/mailgen#readme
   // Generate the plaintext version of the e-mail (for clients that do not support HTML)
-  const emailTextual = mailGenerator.generatePlaintext(options.mailgenContent);
+  const emailTextual = mailGenerator.generatePlaintext(options.mailGenContent);
 
   // Generate an HTML email with the provided contents
-  const emailHtml = mailGenerator.generate(options.mailgenContent);
+  const emailHtml = mailGenerator.generate(options.mailGenContent);
 
   // Create a nodemailer transporter instance which is responsible to send a mail
   const transporter = nodemailer.createTransport({
@@ -92,6 +92,12 @@ const emailRegistrationMailgenContent = (username) => {
       intro: "Welcome to our app! We're very excited to have you on board.",
       action: {
         instructions: "Welcome greetings:",
+        button: {
+          color: "#22BC66",
+          text: "You can visit our websit.",
+          link: "https://example.com/confirm",
+          fallback: "https://example.com/confirm",
+        },
       },
       outro:
         "Need help, or have questions? Just reply to this email, we'd love to help.",

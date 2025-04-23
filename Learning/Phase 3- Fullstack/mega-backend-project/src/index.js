@@ -1,13 +1,20 @@
 import app from "./app.js";
-import connectDB from "./db/dbConnect.js";
 import dotenv from "dotenv";
+import db from "./db/dbConnect.js";
 
 dotenv.config({
   path: "./.env",
 });
 
 const PORT = process.env.PORT || 4000;
-connectDB()
+
+
+// await db()
+// app.listen(PORT, () => {
+//   console.log(`Listening to port ${PORT}`)
+// })
+
+db()
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Listening to port ${PORT}`);

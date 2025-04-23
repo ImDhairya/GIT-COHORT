@@ -11,25 +11,40 @@ import cookieParser from "cookie-parser";
 import bcrypt from "bcryptjs";
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { email, username, password, role } = req.body;
-
-  if (!email || !username || !password || !role) {
-    throw new ApiError(400, "Please enter all details");
+  const { email, username, password, role, fullname, name } = req.body;
+  if (!email || !username || !password || !role || !fullname || !name) {
+    throw new ApiError(400, "Please enter all from auth controllers details");
   }
 
-  const userExists = await User.findOne({ email });
+  // const userExists = await User.findOne({ email });
+  // if (userExists) {
+  //   throw new ApiError(409, "The user is already created.");
+  // }
 
-  if (userExists) {
-    throw new ApiError(409, "The user is already created.");
-  }
-
-  const newUser = await User.create({ username, email, password, role });
+  const newUser = await User.create({
+    email,
+    username,
+    password,
+    role,
+    fullname,
+    name,
+  });
+  // console.log(newUser, "feef");
 
   sendEmail({
     email: email,
     subject: "Welcome to the application",
     mailGenContent: emailRegistrationMailgenContent(username),
   });
+
+  // sendEmail({
+  //   email: email,
+  //   subject: "Welcome aboard please verify.",
+  //   mailgenContent: emailVerificationMailgenContent(
+  //     username,
+  //     `process.env.BASEURL${"thelose"}`,
+  //   ),
+  // });
 
   return res
     .status(201)
@@ -47,7 +62,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  if (!email || !username) {
+  if (!email || !password) {
     throw new ApiError(400, "Please enter all details");
   }
 
@@ -62,17 +77,24 @@ const loginUser = asyncHandler(async (req, res) => {
   if (!isPasswordMatch) {
     throw new ApiError(400, "The passowrd does not matches.");
   }
+  
+  
 
-  user.generateAccessToken();
-  user.generateRefreshToken();
+  const accessToken = user.generateAccessToken();
+  const refreshToken = user.generateRefreshToken();
 
-  cookieOptions = {
+  user.accessToken = accessToken;
+  user.refreshToken = refreshToken;
+
+  user.save();
+
+  const cookieOptions = {
     maxAge: 1000 * 60 * 15, // would expire after 15 minutes
     httpOnly: true, // The cookie only accessible by the web server
     signed: true, // Indicates if the cookie should be signed
   };
 
-  res.cookie("mycookies", user, cookieOptions);
+  res.cookie("mycookies", refreshToken, cookieOptions);
 
   return res
     .status(201)
