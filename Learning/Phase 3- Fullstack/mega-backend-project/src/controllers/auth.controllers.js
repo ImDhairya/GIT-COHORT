@@ -16,15 +16,16 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Please enter all from auth controllers details");
   }
 
-  // const userExists = await User.findOne({ email });
-  // if (userExists) {
-  //   throw new ApiError(409, "The user is already created.");
-  // }
+  const userExists = await User.findOne({ email });
+  if (userExists) {
+    throw new ApiError(409, "The user is already created.");
+  }
+  const hashedPassword = await bcrypt.hash(password, 10);
 
   const newUser = await User.create({
     email,
     username,
-    password,
+    password: hashedPassword,
     role,
     fullname,
     name,
@@ -77,21 +78,40 @@ const loginUser = asyncHandler(async (req, res) => {
   if (!isPasswordMatch) {
     throw new ApiError(400, "The passowrd does not matches.");
   }
-  
-  
 
   const accessToken = user.generateAccessToken();
   const refreshToken = user.generateRefreshToken();
 
   user.accessToken = accessToken;
   user.refreshToken = refreshToken;
+  // user.save()
 
+  const isVerified = user.isEamilVerified;
+  console.log(isVerified, "emailorverified");
+  if (!isVerified) {
+    const emailToken = user.generateTemporaryToken();
+    const token = emailToken.hashedToken;
+    const expiry = emailToken.tokenExpiry;
+    sendEmail({
+      email: email,
+      subject: "Welcome to the application",
+      mailGenContent: emailVerificationMailgenContent(
+        user.username,
+        `http://localhost:3000/api/v1/auth/verifyemail/${token}`,
+      ),
+    });
+
+    user.emailVerificationToken = token;
+    // user.isEamilVerified = true
+    user.emailVerificationExpiry = expiry;
+  }
   user.save();
 
   const cookieOptions = {
     maxAge: 1000 * 60 * 15, // would expire after 15 minutes
     httpOnly: true, // The cookie only accessible by the web server
     signed: true, // Indicates if the cookie should be signed
+    secure: false,
   };
 
   res.cookie("mycookies", refreshToken, cookieOptions);
@@ -103,10 +123,7 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
-  // const { email, username, password, role } = req.body;
-
-  const { token } = req.cookies.mycookies;
-
+  const token = req.signedCookies.mycookies;
   if (!token) {
     throw new ApiError(500, "Unable to find tokens");
   }
@@ -119,9 +136,10 @@ const logoutUser = asyncHandler(async (req, res) => {
 });
 
 const verifyEmail = asyncHandler(async (req, res) => {
-  const { token } = req.params.token;
+  const { token } = req.params;
+  console.log(token, "Tera token is mera");
 
-  if (!verificationToken) {
+  if (!token) {
     throw new ApiError(500, "Unable to verify user");
   }
 
@@ -134,6 +152,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
   if (user) {
     user.isEamilVerified = true;
     user.emailVerificationToken = undefined;
+    user.emailVerificationExpiry = undefined;
     await user.save();
   }
   return res
@@ -162,7 +181,10 @@ const resendEmailVerification = asyncHandler(async (req, res) => {
   sendEmail({
     email: email,
     subject: "Resending email verification",
-    mailGenContent: emailVerificationMailgenContent(user.name, hashedToken),
+    mailGenContent: emailVerificationMailgenContent(
+      user.username,
+      `http://localhost:3000/api/v1/auth/verifyemail/${hashedToken}`,
+    ),
   });
   user.save();
 
@@ -198,6 +220,15 @@ const resetForgottenPassword = asyncHandler(async (req, res) => {
 
   user.forgotPasswordToken = hashedToken;
   user.forgotPasswordExpiry = tokenExpiry;
+
+  sendEmail({
+    email: email,
+    subject: "Resend forgot password tokken",
+    mailGenContent: emailVerificationMailgenContent(
+      user.username,
+      `http://localhost:3000/api/v1/auth/verifyemail/${hashedToken}`,
+    ),
+  });
   user.save();
 
   return res

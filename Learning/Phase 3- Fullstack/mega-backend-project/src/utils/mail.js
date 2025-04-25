@@ -95,7 +95,7 @@ const emailRegistrationMailgenContent = (username) => {
         button: {
           color: "#22BC66",
           text: "You can visit our websit.",
-          link: "https://example.com/confirm",
+          link: "http://localhost:3000",
           fallback: "https://example.com/confirm",
         },
       },

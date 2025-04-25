@@ -7,7 +7,6 @@ import cors from "cors";
 const app = express();
 
 app.use(cors());
-app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET || "defaultSecret"));
 app.use(express.json());
 
