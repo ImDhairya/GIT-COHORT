@@ -5,6 +5,8 @@ import { asyncHandler } from "../utils/async-handler.js";
 import {
   emailRegistrationMailgenContent,
   emailVerificationMailgenContent,
+  forgotPasswordMailgenContent,
+  resetPasswordSuccessMailgenContent,
 } from "../utils/mail.js";
 import { sendEmail } from "../utils/mail.js";
 import cookieParser from "cookie-parser";
@@ -84,9 +86,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
   user.accessToken = accessToken;
   user.refreshToken = refreshToken;
-  // user.save()
 
-  const isVerified = user.isEamilVerified;
+  const isVerified = user.isEmailVerified;
   console.log(isVerified, "emailorverified");
   if (!isVerified) {
     const emailToken = user.generateTemporaryToken();
@@ -102,10 +103,9 @@ const loginUser = asyncHandler(async (req, res) => {
     });
 
     user.emailVerificationToken = token;
-    // user.isEamilVerified = true
     user.emailVerificationExpiry = expiry;
   }
-  user.save();
+  await user.save();
 
   const cookieOptions = {
     maxAge: 1000 * 60 * 15, // would expire after 15 minutes
@@ -137,7 +137,6 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 const verifyEmail = asyncHandler(async (req, res) => {
   const { token } = req.params;
-  console.log(token, "Tera token is mera");
 
   if (!token) {
     throw new ApiError(500, "Unable to verify user");
@@ -150,7 +149,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
   }
 
   if (user) {
-    user.isEamilVerified = true;
+    user.isEmailVerified = true;
     user.emailVerificationToken = undefined;
     user.emailVerificationExpiry = undefined;
     await user.save();
@@ -174,19 +173,19 @@ const resendEmailVerification = asyncHandler(async (req, res) => {
   const { hashedToken, unHashedToken, tokenExpiry } =
     user.generateTemporaryToken();
 
-  user.emailVerificationToken = hashedToken;
+  user.forgotPasswordToken = hashedToken;
 
-  user.emailVerificationExpiry = tokenExpiry;
+  user.forgotPasswordExpiry = tokenExpiry;
 
   sendEmail({
     email: email,
     subject: "Resending email verification",
-    mailGenContent: emailVerificationMailgenContent(
+    mailGenContent: forgotPasswordMailgenContent(
       user.username,
       `http://localhost:3000/api/v1/auth/verifyemail/${hashedToken}`,
     ),
   });
-  user.save();
+  await user.save();
 
   return res
     .status(201)
@@ -229,7 +228,7 @@ const resetForgottenPassword = asyncHandler(async (req, res) => {
       `http://localhost:3000/api/v1/auth/verifyemail/${hashedToken}`,
     ),
   });
-  user.save();
+  await user.save();
 
   return res
     .status(201)
@@ -251,45 +250,42 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   const { refreshtoken } = user.generateRefreshToken();
   user.accessToken = accesstoken;
   user.refreshToken = refreshtoken;
-  user.save();
+  await user.save();
 
   return res
     .status(201)
     .json(new ApiResponse(201, user, "The access token got new!!"));
 });
 
-const forgotPasswordRequest = asyncHandler(async (req, res) => {
-  const { email, username } = req.body;
-  if (!email || !username) {
-    throw new ApiError(401, "You need to provide the email for resetting.");
+const resetpassword = asyncHandler(async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+
+  if (!password || !token) {
+    throw new ApiError(400, "Please provide both password and token.");
   }
-  // we will send the email from over here
-  // later we will check the token and change the password
-  const user = await User.findOne({ email, username });
+
+  console.log(token, password, "HELLOWORLD");
+
+  const user = await User.findOne({ forgotPasswordToken: token });
 
   if (!user) {
-    throw new ApiError(500, "Your user does not exists");
+    throw new ApiError(400, "Invalid or expired token.");
   }
 
-  const { hashedToken, unHashedToken, tokenExpiry } =
-    user.generateTemporaryToken();
-
+  user.password = password;
+  user.forgotPasswordToken = undefined;
+  user.forgotPasswordExpiry = undefined;
+  await user.save();
   sendEmail({
-    email: email,
+    email: user.email,
     subject: "Forgot password Request.",
-    mailGenContent: forgotPasswordMailgenContent(user.name, hashedToken),
+    mailGenContent: resetPasswordSuccessMailgenContent(user.name),
   });
 
   return res
     .status(200)
-    .json(
-      new ApiResponse(
-        201,
-        user,
-        "User forgot password request sent successfully.",
-      ),
-    );
-  //validation
+    .json(new ApiResponse(200, user, "Successfully reset the password."));
 });
 
 const changeCurrentPassword = asyncHandler(async (req, res) => {
@@ -298,9 +294,10 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
     throw new ApiError(401, "You need to provide the email for resetting.");
   }
 
-  const user = await User.findOne({ email, password });
+  const user = await User.findOne({ email });
 
-  // user.password match with password.hash
+  // user.password match with   forgotPasswordRequest,
+  password.hash;
 
   const checkIfCorrect = user.isPasswordCorrect(password);
 
@@ -309,7 +306,7 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
   }
 
   user.password = newPassword;
-  user.save();
+  await user.save();
 
   sendEmail({
     email: email,
@@ -346,9 +343,9 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 
 export {
   changeCurrentPassword,
-  forgotPasswordRequest,
   getCurrentUser,
   loginUser,
+  resetpassword,
   logoutUser,
   refreshAccessToken,
   registerUser,

@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
+import { v4 as uuidv4 } from "uuid";
 
 const userSchema = new mongoose.Schema(
   {
@@ -42,7 +43,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    isEamilVerified: {
+    isEmailVerified: {
       type: Boolean,
       default: false,
     },
@@ -85,6 +86,7 @@ userSchema.methods.generateAccessToken = function () {
       _id: this._id,
       email: this.email,
       username: this.username,
+      tokenId: uuidv4(),
     },
     process.env.ACCESSTOKEN_SECRET,
     {
@@ -99,6 +101,7 @@ userSchema.methods.generateRefreshToken = function () {
       _id: this._id,
       email: this.email,
       username: this.username,
+      tokenId: uuidv4(),
     },
     process.env.REFRESHTOKEN_SECRET,
     {

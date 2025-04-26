@@ -79,8 +79,9 @@ const emailVerificationMailgenContent = (username, verificationUrl) => {
           link: verificationUrl,
         },
       },
-      outro:
-        "Need help, or have questions? Just reply to this email, we'd love to help.",
+      outro: `Need help, or have questions? Just reply to this email. 
+            
+      If you're having trouble clicking the button, copy and paste this link into your browser:\n${verificationUrl}`,
     },
   };
 };
@@ -136,10 +137,13 @@ const resetPasswordSuccessMailgenContent = (username) => {
   return {
     body: {
       name: username,
-      intro: "We have successfully updated your password.",
+      intro: "We got a request to reset the password of our account",
       action: {
-        instructions:
-          "If you didn't update the password contact us immediately",
+        instructions: "",
+        button: {
+          color: "#22BC66", // Optional action button color
+          text: "Thanks for resettnig password",
+        },
       },
       outro:
         "Need help, or have questions? Just reply to this email, we'd love to help.",
