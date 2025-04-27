@@ -1,6 +1,7 @@
 import express, { urlencoded } from "express";
 import healthCheckRouter from "./routes/healthcheck.routes.js";
 import authRoutes from "./routes/auth.routes.js";
+import projectRoutes from "./routes/project.routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -18,5 +19,6 @@ app.use(
 
 app.use("/api/v1/healthcheck", healthCheckRouter);
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/project", projectRoutes);
 
 export default app;

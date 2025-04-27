@@ -1,5 +1,5 @@
-import { Project } from "../models/project.models";
-import { ProjectMember } from "../models/projectmember.models";
+import { Project } from "../models/project.models.js";
+import { ProjectMember } from "../models/projectmember.models.js";
 
 const getProjects = async (req, res) => {
   try {
@@ -52,7 +52,7 @@ const getProjectById = async (req, res) => {
 
 const createProject = async (req, res) => {
   const { name, description } = req.body;
-  const userId = req.user.id;
+  const userId = req.user._id;
 
   if (!name || !description) {
     return res.status(400).json({
@@ -74,6 +74,7 @@ const createProject = async (req, res) => {
       data: project,
     });
   } catch (error) {
+    console.log(error, "error creating project");
     return res.status(500).json({
       message: "Error creating project",
       success: false,
