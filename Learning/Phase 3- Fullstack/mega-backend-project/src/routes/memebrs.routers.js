@@ -2,7 +2,9 @@ import express from "express";
 import { validate } from "../middlewares/validator.middleware.js";
 import {
   addMemberToProject,
+  deleteMember,
   getProjectMembers,
+  updateMemberRole,
 } from "../controllers/project.controllers.js";
 import { isAuthenticated } from "../middlewares/isAuthenticated.js";
 import { addMemberToProjectValidator } from "../validators/index.js";
@@ -20,5 +22,8 @@ router
     isAuthenticated,
     addMemberToProject,
   );
+
+router.route("/removemember").post(validate, isAuthenticated, deleteMember);
+router.route("/updaterole/:id").post(validate, isAuthenticated, updateMemberRole);
 
 export default router;

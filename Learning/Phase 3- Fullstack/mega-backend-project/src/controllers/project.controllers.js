@@ -1,5 +1,6 @@
 import { Project } from "../models/project.models.js";
 import { ProjectMember } from "../models/projectmember.models.js";
+import { AvailableUserRoles } from "../utils/constants.js";
 
 const getProjects = async (req, res) => {
   try {
@@ -218,22 +219,29 @@ const addMemberToProject = async (req, res) => {
 };
 
 const deleteMember = async (req, res) => {
-  const user = req.user.id;
+  const projectId = req.params.id;
+  const { user } = req.body;
+
+  // 1st will remove from project.projectmember
+
+  // 2ndly we will removve the id holder from projectmembers schema
 
   try {
-    const deletedMember = await ProjectMember.findOneAndDelete({ user });
+    const projectMember = await ProjectMember.findOne({
+      user,
+      project: projectId,
+    });
 
-    if (!deletedMember) {
-      return res.status(404).json({
-        message: "Member not found",
-        success: false,
-      });
-    }
+    await Project.findByIdAndUpdate(projectId, {
+      $pull: { projectMembers: projectMember._id },
+    });
+
+    await ProjectMember.findByIdAndDelete(projectMember._id);
 
     return res.status(200).json({
       message: "Member removed from project",
       success: true,
-      data: deletedMember,
+      data: { deletedMember, project },
     });
   } catch (error) {
     return res.status(500).json({
@@ -246,26 +254,34 @@ const deleteMember = async (req, res) => {
 const updateMemberRole = async (req, res) => {
   const user = req.user.id;
   const { memberRole } = req.body;
+  const { id } = req.params;
+  console.log(id, "MEMBERROLE");
+  const userRolesToAllow = AvailableUserRoles;
+  console.log(userRolesToAllow, "fewe");
 
+  if (!userRolesToAllow.includes(memberRole)) {
+    return res.status(400).json({
+      message: "This user role is not allowed.",
+    });
+  }
   try {
     const updatedMember = await ProjectMember.findOneAndUpdate(
-      { user },
+      { _id: id },
       { role: memberRole },
-      { new: true },
+      { new: true }, // to get back the updated document
     );
 
-    if (!updatedMember) {
-      return res.status(404).json({
-        message: "Member not found",
-        success: false,
+    if (updatedMember) {
+      return res.status(200).json({
+        message: "Member role updated",
+        success: true,
+        data: updatedMember,
+      });
+    } else {
+      return res.status(400).json({
+        message: "Unable to update member role",
       });
     }
-
-    return res.status(200).json({
-      message: "Member role updated",
-      success: true,
-      data: updatedMember,
-    });
   } catch (error) {
     return res.status(500).json({
       message: "Error updating member role",
