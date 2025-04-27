@@ -84,7 +84,8 @@ const createProject = async (req, res) => {
 
 const updateProject = async (req, res) => {
   const { name, description } = req.body;
-  const userId = req.user.id;
+  const userId = req.user._id;
+  console.log(userId);
 
   try {
     const project = await Project.findOneAndUpdate(
@@ -115,6 +116,7 @@ const updateProject = async (req, res) => {
 
 const deleteProject = async (req, res) => {
   const { id } = req.params;
+  const userId = req.user._id;
 
   if (!id) {
     return res.status(400).json({
@@ -124,7 +126,7 @@ const deleteProject = async (req, res) => {
   }
 
   try {
-    const project = await Project.findByIdAndDelete(id);
+    const project = await Project.findById(id);
 
     if (!project) {
       return res.status(404).json({
@@ -132,6 +134,16 @@ const deleteProject = async (req, res) => {
         success: false,
       });
     }
+
+    // check if the correct user is only deleting or not
+
+    if (!project.createdBy.equals(userId)) {
+      return res.status(401).json({
+        message: " you are not authorized to delete this project",
+      });
+    }
+
+    await Project.findByIdAndDelete(id);
 
     return res.status(200).json({
       message: "Project deleted successfully",
