@@ -159,14 +159,21 @@ const deleteProject = async (req, res) => {
 };
 
 const getProjectMembers = async (req, res) => {
+  const projectId = req.params.id;
+  console.log(projectId);
   try {
-    const members = await ProjectMember.find({});
+    const project = await Project.findOne({
+      _id: projectId,
+    });
+
+    const members = project.projectMembers;
     return res.status(200).json({
       message: "Found all project members",
       success: true,
       data: members,
     });
   } catch (error) {
+    console.log(error, "error fetching project member.");
     return res.status(500).json({
       message: "Error fetching project members",
       success: false,
@@ -176,7 +183,7 @@ const getProjectMembers = async (req, res) => {
 
 const addMemberToProject = async (req, res) => {
   const { project, role } = req.body;
-  const user = req.user.id;
+  const user = req.user._id;
 
   if (!project || !role) {
     return res.status(400).json({
@@ -192,12 +199,17 @@ const addMemberToProject = async (req, res) => {
       role,
     });
 
+    await Project.findByIdAndUpdate(project, {
+      $push: { projectMembers: newMember._id },
+    });
+
     return res.status(201).json({
       message: "Project member added",
       success: true,
       data: newMember,
     });
   } catch (error) {
+    console.log(error, "error adding member to project.");
     return res.status(500).json({
       message: "Error adding project member",
       success: false,
