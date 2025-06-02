@@ -1,0 +1,23 @@
+{
+  "name": "learn-queue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsc-watch --onSuccess node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@types/express": "^4.17.22",
+    "@types/node": "^22.15.29",
+    "tsc-watch": "^7.1.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "bullmq": "^5.53.1",
+    "express": "^4.21.2"
+  }
+}

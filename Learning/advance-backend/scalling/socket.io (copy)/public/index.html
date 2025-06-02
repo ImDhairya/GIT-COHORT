@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Checkboxesq</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #0f172a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        color: #e2e8f0;
+      }
+
+      .checkbox-container {
+        background: #1e293b;
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        max-width: 700px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+        gap: 12px;
+        justify-items: center;
+        align-items: center;
+        overflow-y: auto;
+        max-height: 80vh;
+      }
+
+      input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        accent-color: #60a5fa; /* blue-400 */
+        transition: transform 0.2s ease;
+      }
+
+      input[type="checkbox"]:hover {
+        transform: scale(1.2);
+        cursor: pointer;
+      }
+
+      @media (max-width: 500px) {
+        .checkbox-container {
+          padding: 1rem;
+          gap: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="checkbox-container"
+      class="checkbox-container"
+    ></div>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+    const socket = io();
+
+    async function stateUpdate() {
+      const data = await fetch("/state", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const _json = await data.json();
+
+      if (_json.checkBoxState) {
+        _json.checkBoxState.forEach((e, index) => {
+          const el = document.getElementById(`index-${index}`);
+          el.checked = e;
+        });
+      }
+      console.log(_json.checkBoxState);
+    }
+
+    socket.on("checkbox-update", ({ index, value }) => {
+      stateUpdate();
+    });
+
+    const checkboxes = new Array(50).fill(0);
+    const checkBoxContainer = document.getElementById("checkbox-container");
+    checkboxes.forEach((check, index) => {
+      const input = document.createElement("input");
+      input.setAttribute("type", "checkbox");
+      input.id = `index-${index}`;
+      input.addEventListener("change", (data) => {
+        socket.emit("checkbox-update", { index: index, value: input.checked });
+      });
+      checkBoxContainer.append(input);
+    });
+  </script>
+</html>

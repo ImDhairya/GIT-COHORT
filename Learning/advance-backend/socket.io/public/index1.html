@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Socket IO</title>
+  </head>
+  <body>
+    <input
+      type="text"
+      name="todo"
+      id="todo"
+    />
+    <button id="submit-btn">Submit</button>
+    <ul id="todo-list">
+      <li>Hello world</li>
+    </ul>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+    const socket = io();
+    socket.on("server-message", (data) => {
+      const list = document.getElementById("todo-list");
+      const newList = document.createElement("li");
+      newList.innerText = data;
+      list.appendChild(newList);
+    });
+  </script>
+
+  <script>
+    const submitBtn = document.getElementById("submit-btn");
+    const inpData = document.getElementById("todo");
+    const list = document.getElementById("todo-list");
+    submitBtn.addEventListener("click", () => {
+      const todo = document.getElementById("todo").value;
+      socket.emit("message", todo);
+      inpData.value = "";
+    });
+  </script>
+</html>
