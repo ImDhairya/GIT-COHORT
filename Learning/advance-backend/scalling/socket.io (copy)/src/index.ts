@@ -11,6 +11,20 @@ const io = new Server();
 io.attach(httpServer);
 const checkBoxState = new Array(50).fill(0);
 
+const redis = new Redis({host: "localhost", port: Number(6379)});
+const Publisher = new Redis({host: "localhost", port: Number(6379)});
+const subscriber = new Redis({host: "localhost", port: Number(6379)});
+
+redis.setnx("checkBoxState", JSON.stringify(new Array(50).fill(0)));
+
+subscriber.subscribe("server:broker");
+subscriber.on("message", (channel, message) => {
+  const {event, index, value} = JSON.parse(message);
+  checkBoxState[index] = value;
+
+  io.emit(event, {index, value}); // relay
+});
+
 io.on("connection", (socket) => {
   console.log("A connection is established ", socket.id);
 
@@ -21,15 +35,23 @@ io.on("connection", (socket) => {
   // setInterval(() => {
   //   socket.emit(`Hello after ${Date.now().toString()}`);
   // }, 1000);
-  socket.on("checkbox-update", ({index, value}) => {
-    checkBoxState[index] = value;
-    io.emit("checkbox-update", {index, value});
-    console.log(checkBoxState);
+  socket.on("checkbox-update", async ({index, value}) => {
+    const existingState = await redis.get("checkBoxState");
+    if (existingState) {
+      JSON.parse(existingState);
+      checkBoxState[index] = value;
+      redis.set("checkBoxState", JSON.stringify(checkBoxState));
+    }
+
+    await Publisher.publish(
+      "server:broker",
+      JSON.stringify({event: "checkbox-update", index, value})
+    );
+    // checkBoxState[index] = value;
+    // io.emit("checkbox-update", {index, value});
   });
   io.emit("checkbox-update", checkBoxState);
 });
-
-const redis = new Redis({host: "localhost", port: Number(6379)});
 
 const port = process.env.PORT || 3001;
 
@@ -41,7 +63,14 @@ const cacheStore: CacheStore = {
   totalPageCount: 0,
 };
 
-app.get("/state", (req, res) => {
+app.get("/state", async (req, res) => {
+  const state = await redis.get("checkBoxState");
+  if (state) {
+    const parsedState = JSON.parse(state);
+    return res.json({checkBoxState: parsedState});
+  } else {
+    return res.json({checkBoxState: []});
+  }
   res.json({checkBoxState});
 });
 

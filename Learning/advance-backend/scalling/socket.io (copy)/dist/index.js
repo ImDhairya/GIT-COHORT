@@ -22,6 +22,16 @@ const httpServer = http_1.default.createServer(app); //http
 const io = new socket_io_1.Server();
 io.attach(httpServer);
 const checkBoxState = new Array(50).fill(0);
+const redis = new ioredis_1.default({ host: "localhost", port: Number(6379) });
+const Publisher = new ioredis_1.default({ host: "localhost", port: Number(6379) });
+const subscriber = new ioredis_1.default({ host: "localhost", port: Number(6379) });
+redis.setnx("checkBoxState", JSON.stringify(new Array(50).fill(0)));
+subscriber.subscribe("server:broker");
+subscriber.on("message", (channel, message) => {
+    const { event, index, value } = JSON.parse(message);
+    checkBoxState[index] = value;
+    io.emit(event, { index, value }); // relay
+});
 io.on("connection", (socket) => {
     console.log("A connection is established ", socket.id);
     socket.emit("Hello");
@@ -31,21 +41,34 @@ io.on("connection", (socket) => {
     // setInterval(() => {
     //   socket.emit(`Hello after ${Date.now().toString()}`);
     // }, 1000);
-    socket.on("checkbox-update", ({ index, value }) => {
-        checkBoxState[index] = value;
-        io.emit("checkbox-update", { index, value });
-        console.log(checkBoxState);
-    });
+    socket.on("checkbox-update", (_a) => __awaiter(void 0, [_a], void 0, function* ({ index, value }) {
+        const existingState = yield redis.get("checkBoxState");
+        if (existingState) {
+            JSON.parse(existingState);
+            checkBoxState[index] = value;
+            redis.set("checkBoxState", JSON.stringify(checkBoxState));
+        }
+        yield Publisher.publish("server:broker", JSON.stringify({ event: "checkbox-update", index, value }));
+        // checkBoxState[index] = value;
+        // io.emit("checkbox-update", {index, value});
+    }));
     io.emit("checkbox-update", checkBoxState);
 });
-const redis = new ioredis_1.default({ host: "localhost", port: Number(6379) });
 const port = process.env.PORT || 3001;
 const cacheStore = {
     totalPageCount: 0,
 };
-app.get("/state", (req, res) => {
+app.get("/state", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const state = yield redis.get("checkBoxState");
+    if (state) {
+        const parsedState = JSON.parse(state);
+        return res.json({ checkBoxState: parsedState });
+    }
+    else {
+        return res.json({ checkBoxState: [] });
+    }
     res.json({ checkBoxState });
-});
+}));
 app.get("/get-books", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const response = yield axios_1.default.get("https://api.freeapi.app/api/v1/public/books");
     return res.status(200).json(response.data);
