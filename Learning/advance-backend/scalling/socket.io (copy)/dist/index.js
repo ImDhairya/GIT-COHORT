@@ -17,14 +17,19 @@ const axios_1 = __importDefault(require("axios"));
 const ioredis_1 = __importDefault(require("ioredis"));
 const http_1 = __importDefault(require("http"));
 const socket_io_1 = require("socket.io");
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const app = (0, express_1.default)(); // express
 const httpServer = http_1.default.createServer(app); //http
 const io = new socket_io_1.Server();
 io.attach(httpServer);
 const checkBoxState = new Array(50).fill(0);
-const redis = new ioredis_1.default({ host: "localhost", port: Number(6379) });
-const Publisher = new ioredis_1.default({ host: "localhost", port: Number(6379) });
-const subscriber = new ioredis_1.default({ host: "localhost", port: Number(6379) });
+// const redis = new Redis({host: "localhost", port: Number(6379)});
+// const Publisher = new Redis({host: "localhost", port: Number(6379)});
+// const subscriber = new Redis({host: "localhost", port: Number(6379)});
+const redis = new ioredis_1.default(process.env.REDIS_URL);
+const Publisher = new ioredis_1.default(process.env.REDIS_URL);
+const subscriber = new ioredis_1.default(process.env.REDIS_URL);
 redis.setnx("checkBoxState", JSON.stringify(new Array(50).fill(0)));
 subscriber.subscribe("server:broker");
 subscriber.on("message", (channel, message) => {
@@ -54,7 +59,7 @@ io.on("connection", (socket) => {
     }));
     io.emit("checkbox-update", checkBoxState);
 });
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const cacheStore = {
     totalPageCount: 0,
 };

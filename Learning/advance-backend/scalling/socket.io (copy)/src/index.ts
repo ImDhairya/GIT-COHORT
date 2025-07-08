@@ -3,6 +3,9 @@ import axios from "axios";
 import Redis from "ioredis";
 import http from "http";
 import {Server} from "socket.io";
+import dotenv from "dotenv";
+dotenv.config();
+
 
 const app = express(); // express
 const httpServer = http.createServer(app); //http
@@ -11,9 +14,15 @@ const io = new Server();
 io.attach(httpServer);
 const checkBoxState = new Array(50).fill(0);
 
-const redis = new Redis({host: "localhost", port: Number(6379)});
-const Publisher = new Redis({host: "localhost", port: Number(6379)});
-const subscriber = new Redis({host: "localhost", port: Number(6379)});
+// const redis = new Redis({host: "localhost", port: Number(6379)});
+// const Publisher = new Redis({host: "localhost", port: Number(6379)});
+// const subscriber = new Redis({host: "localhost", port: Number(6379)});
+
+
+const redis = new Redis(process.env.REDIS_URL!);
+const Publisher = new Redis(process.env.REDIS_URL!);
+const subscriber = new Redis(process.env.REDIS_URL!);
+
 
 redis.setnx("checkBoxState", JSON.stringify(new Array(50).fill(0)));
 
@@ -53,7 +62,7 @@ io.on("connection", (socket) => {
   io.emit("checkbox-update", checkBoxState);
 });
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 
 interface CacheStore {
   totalPageCount: number;
